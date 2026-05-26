@@ -16,19 +16,8 @@ export default async function handler(req, res) {
 
     const data = await response.json();
 
-    if (!data.data || data.status !== 200) {
-      return res.status(200).send(`${name}#${tag} introuvable. Vérifie le pseudo et le tag.`);
-    }
-
-    const { currenttierpatched, ranking_in_tier, mmr_change_to_last_game } = data.data;
-
-    const change = mmr_change_to_last_game >= 0
-      ? `+${mmr_change_to_last_game}`
-      : `${mmr_change_to_last_game}`;
-
-    return res.status(200).send(
-      `${name}#${tag} → ${currenttierpatched} | ${ranking_in_tier} RR (${change} dernier match)`
-    );
+    // Debug : affiche toute la structure
+    return res.status(200).json(data);
 
   } catch (err) {
     return res.status(200).send("Erreur: " + err.message);
